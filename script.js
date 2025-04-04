@@ -65,6 +65,7 @@ window.onload = function (dentroTipo) {
         } = document.documentElement;
 
         if (scrollTop + clientHeight + 500 >= scrollHeight - 5 && paginaSiguente){
+           paginaSiguente = false
             pagina ++
             urlActual = cambiarUrl()
             if(filtro.value != ""){
