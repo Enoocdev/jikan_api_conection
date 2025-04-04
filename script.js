@@ -35,8 +35,6 @@ window.onload = function (dentroTipo) {
         selects.forEach(element => {
             element.addEventListener("change", (event) =>{
                 pagina = 1
-                
-                
                 urlActual = cambiarUrl()
 
                 console
@@ -169,6 +167,11 @@ function generarHtml(todosLosDatos) {
     newCard.style = "width: 18rem;";
     newCard.innerHTML = plantilla;
 
+    try{
+        newCard.querySelector(".fecha").innerHTML = todosLosDatos[i].aired.string;
+    }catch(error){
+        console.log(error)
+    }
     
     // if (filtro.value == "manga") {
     //     newCard.querySelector(".fecha").innerHTML =
