@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h5 {
+    font-weight: bold;
+}
+
+.card-container {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 2em;
+    justify-content: center;
+}
+.datos {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    overflow: hidden;
+
+    & > button {
+    margin-top: auto;
+    }
+
+    & h5 {
+    overflow: hidden;
+    /* height: 100%; */
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+    white-space: nowrap;
+    }
+
+    & .card-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    }
+}
+
+.contenedor-img-body-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.large_image_url {
+    width: 100%;
+}
+
+.card-img-top {
+    aspect-ratio: 9/12;
+    object-fit: cover;
+}
+
+#carouselExampleCaptions{
+    margin-bottom: 20px;
+    margin-left: 30em ;
+    margin-right: 30em ;
+
+    &::backdrop{
+        background-color: black;
+    }
+}
+.carousel-item {
+height: 700px;
+margin-bottom: .7px;
+}
+.carousel-item img {
+max-height: 100%;
+object-fit: cover;
+}
+.contenedorDeOpciones{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 2em;
+    gap: 2em;
+    & .form-select{
+        width: 15em;
+    }
+}
+.select{
+    display: flex;
+    justify-content: center;
+}
+
+.fitro{
+    width: 70vw;
+}
