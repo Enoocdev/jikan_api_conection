@@ -35,8 +35,6 @@ window.onload = function (dentroTipo) {
         selects.forEach(element => {
             element.addEventListener("change", (event) =>{
                 pagina = 1
-                
-                
                 urlActual = cambiarUrl()
 
                 console
@@ -65,7 +63,8 @@ window.onload = function (dentroTipo) {
         } = document.documentElement;
 
         if (scrollTop + clientHeight + 500 >= scrollHeight - 5 && paginaSiguente){
-           paginaSiguente = false
+
+            paginaSiguente = false
             pagina ++
             urlActual = cambiarUrl()
             if(filtro.value != ""){
@@ -97,8 +96,6 @@ window.onload = function (dentroTipo) {
 
 function obtenerTodosLosElementos(data) {
     console.log(urlActual)
-
-    let datos = new Array();
     todosLosDatos = data.data;
 
 
@@ -171,6 +168,11 @@ function generarHtml(todosLosDatos) {
     newCard.style = "width: 18rem;";
     newCard.innerHTML = plantilla;
 
+    try{
+        newCard.querySelector(".fecha").innerHTML = todosLosDatos[i].aired.string;
+    }catch(error){
+        console.log(error)
+    }
     
     // if (filtro.value == "manga") {
     //     newCard.querySelector(".fecha").innerHTML =
