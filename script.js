@@ -8,6 +8,7 @@ var urlActual;
 let mostrados = []
 
 function cambiarUrl(){
+                pagina ++
                 mostrados = []
                 const tipo = "/" + (document.querySelector(".animeManga").value == "" ? "anime" : document.querySelector(".animeManga").value)
                 const order =  document.querySelector("#orderBy").value
@@ -17,16 +18,18 @@ function cambiarUrl(){
                 let gener = generes != "" ? "&genres=" + generes : ""
                 let orderBy = order != "" ? `&order_by=` +  order : ""
 
-            return (jikan + tipo + np + news + orderBy + gener);
+            return (jikan + tipo + np + news + orderBy + "&sort=desc"  + gener);
         }
 
-window.onload = function (dentroTipo) {
+window.onload = async function (dentroTipo) {
     const selects = document.querySelectorAll(".options")
 
     const contenedor = document.querySelector(".card-container");
     let filtro = document.querySelector(".fitro");
     const generes = document.querySelector("#generes")
-    urlActual = jikan + `/${filtro.value == "" ? "anime" : "top/" + filtro.value}`
+    urlActual = cambiarUrl()
+
+    console.log(urlActual)
 
     fetch("https://api.jikan.moe/v4/genres/anime").then((Response) => Response.json()).then((data) => {
 
@@ -55,7 +58,7 @@ window.onload = function (dentroTipo) {
         selects.forEach(element => {
             element.addEventListener("change", (event) =>{
                 
-                pagina = 1
+                pagina = 0
                 urlActual = cambiarUrl()
 
                 console
@@ -93,7 +96,7 @@ window.onload = function (dentroTipo) {
             }else{
                 fetch(urlActual).then((Response)=>Response.json()).then((data) => obtenerTodosLosElementos(data))
             }
-            pagina ++
+            
             console.log(pagina)
             console.log(urlActual)
             
@@ -127,11 +130,7 @@ async function obtenerTodosLosElementos(data) {
         p.innerText = "No hay datos"
         contenedor.appendChild(p)
     }else{
-        if(!data.paginacion){
-        paginaSiguente = data.pagination.has_next_page
-        
-        }
-        
+        if(!data.paginacion) paginaSiguente = data.pagination.has_next_page
         
         generarCarrousel(todosLosDatos)
         generarHtml(todosLosDatos)
@@ -139,21 +138,14 @@ async function obtenerTodosLosElementos(data) {
 }
 
 function generarHtml(todosLosDatos) {
-    let filtro = document.querySelector(".fitro");
     const contenedor = document.querySelector(".card-container");
-    const div = document.querySelectorAll(".card");
-    const foto = document.querySelectorAll(".card-img-top");
-    const titulo = document.querySelectorAll(".card-title");
-    const dur = document.querySelectorAll(".duration");
-    const date = document.querySelectorAll(".fecha");
-    
     
     for (let i = 0; i < todosLosDatos.length; i++) {
     let plantilla = `<img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <div class="datos">
                                         <h5 class="card-title" >Card title</h5>
-                                        <p class="card-text"><span class="fecha"></span><span class="duration"></span></p>
+                                        <p class="card-text"><span class="fecha"></span><hr><span class="duration"></span></p>
                                         <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-${controladorModal}">
                                                 synopsis...
@@ -192,8 +184,10 @@ function generarHtml(todosLosDatos) {
 
     try{
         newCard.querySelector(".fecha").innerHTML = todosLosDatos[i].aired.string;
+        newCard.querySelector(".duration").innerHTML =  todosLosDatos[i].episodes ? "Nº episodes :" + todosLosDatos[i].episodes : "Proximamente ...";
     }catch(error){
-        console.log(error)
+        newCard.querySelector(".fecha").innerHTML = todosLosDatos[i].published.string
+        newCard.querySelector(".duration").innerHTML = todosLosDatos[i].chapters
     }
     
     // if (filtro.value == "manga") {
