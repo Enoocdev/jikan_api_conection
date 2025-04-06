@@ -15,7 +15,6 @@ function cambiarUrl(){
                 let np = `?page=${pagina}`;
                 let news = document.querySelector("#news").checked == true ?  `&status=upcoming` : "";
                 let gener = generes != "" ? "&genres=" + generes : ""
-                
                 let orderBy = order != "" ? `&order_by=` +  order : ""
 
             return (jikan + tipo + np + news + orderBy + gener);

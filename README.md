@@ -1,5 +1,5 @@
 # jikan_api_conection
----
+
 
 ## Distribucion 
 
@@ -17,10 +17,11 @@ Primer proyecto de intento de conexion con una api
 * Filtrar entre anime y manga
 * Scrol infinito y paginacion
 * Filtrar por novedades de anime
+* Ordenar por 
+* Filtrar por generos
 
 ### Funciones futuras
-* Ordenar por fecha 
-* Filtrar por generos
+
 * Y mas tipos de filtros
 
 #### Imformacion sobre la api
