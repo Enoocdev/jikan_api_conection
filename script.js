@@ -11,12 +11,14 @@ function cambiarUrl(){
                 mostrados = []
                 const tipo = "/" + (document.querySelector(".animeManga").value == "" ? "anime" : document.querySelector(".animeManga").value)
                 const order =  document.querySelector("#orderBy").value
+                const generes = document.querySelector("#generes").value
                 let np = `?page=${pagina}`;
                 let news = document.querySelector("#news").checked == true ?  `&status=upcoming` : "";
-                console.log(order)
-                let orderBy = order ? `&order_by=` +  order : ""
+                let gener = generes != "" ? "&genres=" + generes : ""
+                
+                let orderBy = order != "" ? `&order_by=` +  order : ""
 
-            return (jikan + tipo + np + news + orderBy);
+            return (jikan + tipo + np + news + orderBy + gener);
         }
 
 window.onload = function (dentroTipo) {
@@ -24,8 +26,22 @@ window.onload = function (dentroTipo) {
 
     const contenedor = document.querySelector(".card-container");
     let filtro = document.querySelector(".fitro");
-    
+    const generes = document.querySelector("#generes")
     urlActual = jikan + `/${filtro.value == "" ? "anime" : "top/" + filtro.value}`
+
+    fetch("https://api.jikan.moe/v4/genres/anime").then((Response) => Response.json()).then((data) => {
+
+        console.log(data)
+
+        data.data.map( genero => {
+            
+            let option = document.createElement("option")
+            option.setAttribute("value", genero.mal_id )
+            option.innerText = genero.name
+
+            generes.appendChild(option)
+        });
+    })
     
     fetch(urlActual)
         .then((Response) => Response.json())
@@ -101,7 +117,7 @@ window.onload = function (dentroTipo) {
 
 
 
-function obtenerTodosLosElementos(data) {
+async function obtenerTodosLosElementos(data) {
     console.log(urlActual)
     todosLosDatos = data.data;
 
