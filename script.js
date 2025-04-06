@@ -222,11 +222,13 @@ function generarHtml(todosLosDatos) {
 
 function generarCarrousel(todosLosDatos){
     let imagenesCarrusel = document.querySelectorAll(".carousel-item")
-    let filtro = document.querySelector(".fitro");
+    let animeManga = document.querySelector(".animeManga").value
+    console.log(animeManga)
+    let filtro =   animeManga = "" ?  "anime" : animeManga 
     
     for (let i = 0; i < 3; i++) {
         
-        fetch(`${urlActual}/${todosLosDatos[i].mal_id}/pictures`)
+        fetch(`https://api.jikan.moe/v4/${animeManga}/${todosLosDatos[i].mal_id}/pictures`)
         .then(res => res.json()).then(data => {
             
             imagenesCarrusel[i].querySelector("img").src = data.data[0].jpg.large_image_url;
