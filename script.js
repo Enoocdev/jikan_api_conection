@@ -5,13 +5,18 @@ let paginaSiguente;
 let controladorModal = 0
 var jikan = `https://api.jikan.moe/v4`
 var urlActual;
+let mostrados = []
 
 function cambiarUrl(){
+                mostrados = []
                 const tipo = "/" + (document.querySelector(".animeManga").value == "" ? "anime" : document.querySelector(".animeManga").value)
+                const order =  document.querySelector("#orderBy").value
                 let np = `?page=${pagina}`;
                 let news = document.querySelector("#news").checked == true ?  `&status=upcoming` : "";
+                console.log(order)
+                let orderBy = order ? `&order_by=` +  order : ""
 
-            return (jikan + tipo + np + news);
+            return (jikan + tipo + np + news + orderBy);
         }
 
 window.onload = function (dentroTipo) {
@@ -34,6 +39,7 @@ window.onload = function (dentroTipo) {
         console.log(selects)
         selects.forEach(element => {
             element.addEventListener("change", (event) =>{
+                
                 pagina = 1
                 urlActual = cambiarUrl()
 
@@ -65,13 +71,14 @@ window.onload = function (dentroTipo) {
         if (scrollTop + clientHeight + 500 >= scrollHeight - 5 && paginaSiguente){
 
             paginaSiguente = false
-            pagina ++
+            
             urlActual = cambiarUrl()
             if(filtro.value != ""){
                 fetch(urlActual).then((Response)=>Response.json()).then((data) => obtenerTodosLosElementos(data))
             }else{
                 fetch(urlActual).then((Response)=>Response.json()).then((data) => obtenerTodosLosElementos(data))
             }
+            pagina ++
             console.log(pagina)
             console.log(urlActual)
             
@@ -185,18 +192,22 @@ function generarHtml(todosLosDatos) {
     //     newCard.querySelector(".duration").innerHTML =
     //     todosLosDatos[i].duration;
     // }
-    newCard.querySelector(".modal-body").innerHTML =
-        todosLosDatos[i].synopsis;
-    newCard.querySelector(".card-img-top").src =
-        todosLosDatos[i].images.jpg.large_image_url;
-    newCard.querySelector(".card-img-modal").src =
-        todosLosDatos[i].images.jpg.large_image_url;
-    newCard.querySelector(".card-title").innerHTML =
-        todosLosDatos[i].title;
-    newCard.querySelector(".modal-title").innerHTML =
-        todosLosDatos[i].title;
+    if(mostrados.includes(todosLosDatos[i].mal_id)) continue
 
-    contenedor.appendChild(newCard);
+        mostrados.push(todosLosDatos[i].mal_id)
+        newCard.querySelector(".modal-body").innerHTML =
+            todosLosDatos[i].synopsis;
+        newCard.querySelector(".card-img-top").src =
+            todosLosDatos[i].images.jpg.large_image_url;
+        newCard.querySelector(".card-img-modal").src =
+            todosLosDatos[i].images.jpg.large_image_url;
+        newCard.querySelector(".card-title").innerHTML =
+            todosLosDatos[i].title;
+        newCard.querySelector(".modal-title").innerHTML =
+            todosLosDatos[i].title;
+
+        contenedor.appendChild(newCard);
+    
     }
 }
 
