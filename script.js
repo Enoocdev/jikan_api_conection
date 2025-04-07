@@ -61,7 +61,6 @@ window.onload = async function (dentroTipo) {
                 pagina = 0
                 urlActual = cambiarUrl()
 
-                console
 
                 contenedor.innerHTML = "";
                 dentroTipo = filtro.value;
@@ -124,7 +123,7 @@ async function obtenerTodosLosElementos(data) {
     todosLosDatos = data.data;
 
 
-    if (todosLosDatos[0] == undefined){
+    if (todosLosDatos[0] == undefined) {
         const contenedor = document.querySelector(".card-container");
         let p = document.createElement("h5")
         p.innerText = "No hay datos"
