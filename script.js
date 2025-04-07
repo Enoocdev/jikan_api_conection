@@ -175,11 +175,11 @@ function generarHtml(todosLosDatos) {
                                     </div>
                             </div>
                             `;
-    controladorModal++
-    const newCard = document.createElement("div");
-    newCard.classList = ["card"];
-    newCard.style = "width: 18rem;";
-    newCard.innerHTML = plantilla;
+        controladorModal++
+        const newCard = document.createElement("div");
+        newCard.classList = ["card"];
+        newCard.style = "width: 18rem;";
+        newCard.innerHTML = plantilla;
 
     try{
         newCard.querySelector(".fecha").innerHTML = todosLosDatos[i].aired.string;
@@ -213,7 +213,7 @@ function generarHtml(todosLosDatos) {
             todosLosDatos[i].title;
         newCard.querySelector(".modal-title").innerHTML =
             todosLosDatos[i].title;
-
+        
         contenedor.appendChild(newCard);
     
     }
